@@ -8,7 +8,9 @@ export default class HomeScreen extends React.Component {
     super(props);
     this.state = {
       price: 5,
-      diameter: 26
+      diameter: 26,
+      text: null,
+      showNamePrompt: false
     };
   }
 
@@ -29,6 +31,7 @@ export default class HomeScreen extends React.Component {
   }
 
   postData() {
+    const that = this;
     fetch('https://pizza-3a00.restdb.io/rest/vendors', {
       method: 'POST',
       headers: {
@@ -37,9 +40,14 @@ export default class HomeScreen extends React.Component {
         "x-apikey": RESTDB_IO_KEY,
       },
       body: JSON.stringify({
-        name: 'Whatever',
-        price: 46746723674,
+        name: this.state.name,
+        price: this.state.price,
+        showNamePrompt: false,
       }),
+    })
+    .then(function() {
+      that.setState({showNamePrompt: false});
+      that.props.navigation.navigate('List');
     });
   }
 
@@ -50,7 +58,20 @@ export default class HomeScreen extends React.Component {
   }
 
   render() {
-    return (
+    const main = this.state.showNamePrompt ?
+      <View>
+        <TextInput
+          style={{height: 40}}
+          placeholder="Name"
+          onChangeText={(text) => this.setState({name: text})}
+        />
+        <TouchableOpacity
+          style={styles.listButton}
+          onPress={() => this.postData()}>
+          <Text style={styles.listButtonText}> Publish </Text>
+        </TouchableOpacity>
+      </View>
+      :
       <ScrollView contentContainerStyle={styles.container}>
         <Text>My pizza has a diameter of</Text>
         <Text style={styles.bigNumber}>{this.state.diameter}cm</Text>
@@ -94,11 +115,14 @@ export default class HomeScreen extends React.Component {
 
           <TouchableOpacity
             style={styles.listButton}
-            onPress={() => this.postData()}>
+            onPress={() => this.setState({showNamePrompt: true})}>
             <Text style={styles.listButtonText}> Publish </Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
+
+    return (
+      <View>{main}</View>
     );
   }
 }
