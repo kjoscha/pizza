@@ -44,4 +44,8 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  listItem: {
+    paddingVertical: 10,
+    paddingHorizontal: 20
+  }
 });

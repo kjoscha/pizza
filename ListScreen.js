@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, View, ScrollView, Text, FlatList } from 'react-native';
+import { View, ScrollView, Text, FlatList } from 'react-native';
 import styles from './Styles';
 import { RESTDB_IO_KEY } from './Secrets';
 
@@ -11,8 +11,11 @@ export default class ListScreen extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.fetchData();
+  }
+
   fetchData() {
-    console.log(RESTDB_IO_KEY)
     fetch('https://pizza-3a00.restdb.io/rest/vendors', {
       method: 'GET',
       headers: {
@@ -32,20 +35,17 @@ export default class ListScreen extends React.Component {
   }
 
   render() {
+    const table = this.state.vendors.length > 1 ?
+      <FlatList
+        data={this.state.vendors}
+        keyExtractor={(item, index) => `list-item-${item.id}`}
+        renderItem={({item}) => <Text style={styles.listItem}>{item.name} - {item.price}</Text>}
+      /> :
+      <Text>loading...</Text>
 
     return (
       <ScrollView>
-        <Text>List Screen</Text>
-        <TouchableOpacity
-          style={styles.listButton}
-          onPress={() => console.log(this.fetchData())}>
-          <Text style={styles.listButtonText}> {this.state.vendors.length} </Text>
-        </TouchableOpacity>
-
-        <FlatList
-          data={this.state.vendors}
-          renderItem={({item}) => <Text>{item.name} - {item.price}</Text>}
-        />
+        {table}
       </ScrollView>
     );
   }
