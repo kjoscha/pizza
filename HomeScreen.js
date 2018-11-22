@@ -25,7 +25,7 @@ export default class HomeScreen extends React.Component {
   changePrice(price) {
     this.setState(() => {
       return {
-        price: parseFloat(price) >= 10 ? parseFloat(price).toPrecision(4) : parseFloat(price).toPrecision(3),
+        price: parseFloat(price) >= 10 ? parseFloat(price.toPrecision(4)) : parseFloat(price.toPrecision(3)),
       };
     });
   }
@@ -42,7 +42,6 @@ export default class HomeScreen extends React.Component {
       body: JSON.stringify({
         name: this.state.name,
         price: this.state.price,
-        showNamePrompt: false,
       }),
     })
     .then(function() {
@@ -65,6 +64,9 @@ export default class HomeScreen extends React.Component {
           placeholder="Name"
           onChangeText={(text) => this.setState({name: text})}
         />
+
+        <Text>{this.state.price}</Text>
+
         <TouchableOpacity
           style={styles.listButton}
           onPress={() => this.postData()}>
