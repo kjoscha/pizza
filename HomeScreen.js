@@ -1,6 +1,7 @@
 import React from 'react';
 import { Dimensions, TextInput, TouchableOpacity, View, ScrollView, Text, Image, Slider } from 'react-native';
 import styles from './Styles';
+import PublishScreen from './PublishScreen';
 import { RESTDB_IO_KEY } from './Secrets';
 
 export default class HomeScreen extends React.Component {
@@ -23,11 +24,11 @@ export default class HomeScreen extends React.Component {
   }
 
   changePrice(price) {
-    this.setState(() => {
-      return {
-        price: parseFloat(price) >= 10 ? parseFloat(price.toPrecision(4)) : parseFloat(price.toPrecision(3)),
-      };
-    });
+    this.setState({ price: parseFloat(price) >= 10 ? parseFloat(price.toPrecision(4)) : parseFloat(price.toPrecision(3)) })
+  }
+
+  changeName(name) {
+    this.setState({ name: name })
   }
 
   postData() {
@@ -58,21 +59,7 @@ export default class HomeScreen extends React.Component {
 
   render() {
     const main = this.state.showNamePrompt ?
-      <View>
-        <TextInput
-          style={{height: 40}}
-          placeholder="Name"
-          onChangeText={(text) => this.setState({name: text})}
-        />
-
-        <Text>{this.state.price}</Text>
-
-        <TouchableOpacity
-          style={styles.listButton}
-          onPress={() => this.postData()}>
-          <Text style={styles.listButtonText}> Publish </Text>
-        </TouchableOpacity>
-      </View>
+      <PublishScreen postData={this.postData.bind(this)} changeName={this.changeName.bind(this)} price={this.state.price} />
       :
       <ScrollView contentContainerStyle={styles.container}>
         <Text>My pizza has a diameter of</Text>

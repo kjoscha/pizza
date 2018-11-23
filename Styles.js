@@ -47,5 +47,10 @@ export default StyleSheet.create({
   listItem: {
     paddingVertical: 10,
     paddingHorizontal: 20
+  },
+  nameInput: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    fontSize: 22,
   }
 });
