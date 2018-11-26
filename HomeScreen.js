@@ -10,8 +10,6 @@ export default class HomeScreen extends React.Component {
     this.state = {
       price: 5,
       diameter: 26,
-      text: null,
-      showNamePrompt: false
     };
   }
 
@@ -27,30 +25,6 @@ export default class HomeScreen extends React.Component {
     this.setState({ price: parseFloat(price) >= 10 ? parseFloat(price.toPrecision(4)) : parseFloat(price.toPrecision(3)) })
   }
 
-  changeName(name) {
-    this.setState({ name: name })
-  }
-
-  postData() {
-    const that = this;
-    fetch('https://pizza-3a00.restdb.io/rest/vendors', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        "x-apikey": RESTDB_IO_KEY,
-      },
-      body: JSON.stringify({
-        name: this.state.name,
-        price: this.state.price,
-      }),
-    })
-    .then(function() {
-      that.setState({showNamePrompt: false});
-      that.props.navigation.navigate('List');
-    });
-  }
-
   squareCentimeterPrice() {
     const radius = (this.state.diameter / 2)
     const area = 3.14 * radius * radius
@@ -58,9 +32,7 @@ export default class HomeScreen extends React.Component {
   }
 
   render() {
-    const main = this.state.showNamePrompt ?
-      <PublishScreen postData={this.postData.bind(this)} changeName={this.changeName.bind(this)} price={this.state.price} />
-      :
+    const main =
       <ScrollView contentContainerStyle={styles.container}>
         <Text>My pizza has a diameter of</Text>
         <Text style={styles.bigNumber}>{this.state.diameter}cm</Text>
@@ -104,7 +76,7 @@ export default class HomeScreen extends React.Component {
 
           <TouchableOpacity
             style={styles.listButton}
-            onPress={() => this.setState({showNamePrompt: true})}>
+            onPress={() => this.props.navigation.navigate('Publish', {squareCentimeterPrice: this.squareCentimeterPrice()})}>
             <Text style={styles.listButtonText}> Publish </Text>
           </TouchableOpacity>
         </View>
