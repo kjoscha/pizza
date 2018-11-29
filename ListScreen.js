@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, ScrollView, Text, FlatList } from 'react-native';
+import Vendor from './Vendor';
 import styles from './Styles';
 import { RESTDB_IO_KEY } from './Secrets';
 
@@ -45,12 +46,12 @@ export default class ListScreen extends React.Component {
       <FlatList
         data={this.state.vendors}
         keyExtractor={(item, index) => `list-item-${item.id}`}
-        renderItem={({item}) => <Text style={styles.listItem}>{item.name} - {item.price}</Text>}
+        renderItem={({item}) => <Vendor item={item} />}
       /> :
       <Text>loading...</Text>
 
     return (
-      <ScrollView>
+      <ScrollView contentContainerStyle={styles.container}>
         {table}
       </ScrollView>
     );

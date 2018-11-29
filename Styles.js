@@ -21,6 +21,7 @@ export default StyleSheet.create({
     borderRadius: 4,
   },
   listButton: {
+    marginVertical: '1%',
     paddingVertical: 10,
     paddingHorizontal: 20,
     backgroundColor: 'steelblue',
@@ -45,8 +46,17 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   listItem: {
-    paddingVertical: 10,
-    paddingHorizontal: 20
+    width: '96%',
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: 'lightgrey',
+    marginHorizontal: '2%',
+    marginVertical: '1%',
+    borderRadius: 4,
+  },
+  listItemCell: {
+    width: '50%',
+    padding: 15,
   },
   nameInput: {
     paddingVertical: 10,
