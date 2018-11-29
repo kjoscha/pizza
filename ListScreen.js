@@ -34,8 +34,14 @@ export default class ListScreen extends React.Component {
     .catch((error) => { console.error(error) });
   }
 
+  sortByPrice(vendors) {
+    return vendors.sort(function (a, b) {
+      return a.price - b.price;
+    });
+  }
+
   render() {
-    const table = this.state.vendors.length > 1 ?
+    const table = this.sortByPrice(this.state.vendors).length > 1 ?
       <FlatList
         data={this.state.vendors}
         keyExtractor={(item, index) => `list-item-${item.id}`}
