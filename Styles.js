@@ -41,7 +41,7 @@ export default StyleSheet.create({
     justifyContent: 'space-around'
   },
   container: {
-    paddingVertical: 30,
+    paddingVertical: 20,
     alignItems: 'center',
     justifyContent: 'center',
   },

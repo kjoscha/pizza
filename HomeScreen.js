@@ -22,7 +22,7 @@ export default class HomeScreen extends React.Component {
   }
 
   changePrice(price) {
-    this.setState({ price: parseFloat(price) >= 10 ? parseFloat(price.toPrecision(4)) : parseFloat(price.toPrecision(3)) })
+    this.setState({ price: parseFloat(price).toFixed(2) })
   }
 
   squareCentimeterPrice() {
@@ -71,7 +71,7 @@ export default class HomeScreen extends React.Component {
           <TouchableOpacity
             style={styles.listButton}
             onPress={() => this.props.navigation.navigate('List')}>
-            <Text style={styles.listButtonText}> Compare </Text>
+            <Text style={styles.listButtonText}> Top 100 </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
