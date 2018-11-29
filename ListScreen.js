@@ -37,18 +37,18 @@ export default class ListScreen extends React.Component {
 
   sortByPrice(vendors) {
     return vendors.sort(function (a, b) {
-      return a.price - b.price;
+      return a.squaremeter_price - b.squaremeter_price;
     });
   }
 
   render() {
-    const table = this.sortByPrice(this.state.vendors).length > 1 ?
+    const table = this.state.vendors.length > 0 ?
       <FlatList
-        data={this.state.vendors}
+        data={this.sortByPrice(this.state.vendors)}
         keyExtractor={(item, index) => `list-item-${item.id}`}
         renderItem={({item}) => <Vendor item={item} />}
       /> :
-      <Text>loading...</Text>
+      <Text>waiting for pizzas...</Text>
 
     return (
       <ScrollView contentContainerStyle={styles.container}>

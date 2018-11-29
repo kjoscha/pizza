@@ -22,7 +22,9 @@ export default class PublishScreen extends React.Component {
       },
       body: JSON.stringify({
         name: this.state.name,
-        price: this.props.navigation.getParam('squareCentimeterPrice'),
+        diameter: 10,
+        price: 12.50,
+        squaremeter_price: this.props.navigation.getParam('squareCentimeterPrice')
       }),
     })
     .then(function() {

@@ -54,9 +54,18 @@ export default StyleSheet.create({
     marginVertical: '1%',
     borderRadius: 4,
   },
-  listItemCell: {
-    width: '50%',
-    padding: 15,
+  listItemName: {
+    width: '36%',
+    padding: 10,
+  },
+  listItemNumber: {
+    width: '20%',
+    padding: 10,
+  },
+  listItemSquaremeterPrice: {
+    width: '20%',
+    padding: 10,
+    fontWeight: 'bold',
   },
   nameInput: {
     paddingVertical: 10,
