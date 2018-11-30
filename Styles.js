@@ -20,14 +20,13 @@ export default StyleSheet.create({
     padding: 15,
     borderRadius: 4,
   },
-  listButton: {
-    marginVertical: '1%',
+  button: {
     paddingVertical: 10,
     paddingHorizontal: 20,
     backgroundColor: 'steelblue',
     borderRadius: 4,
   },
-  listButtonText: {
+  buttonText: {
     color: 'white',
     fontSize: 22,
   },
@@ -46,28 +45,37 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   listItem: {
-    width: '96%',
+    marginVertical: 4,
+  },
+  listItemRow: {
+    marginHorizontal: '1%',
+    marginVertical: 1,
+    width: '98%',
     flex: 1,
     flexDirection: 'row',
     backgroundColor: 'lightgrey',
-    marginHorizontal: '2%',
-    marginVertical: '1%',
     borderRadius: 4,
   },
+  listItemDescription: {
+    padding: 10,
+    fontStyle: 'italic',
+    color: 'grey',
+  },
   listItemName: {
-    width: '36%',
+    width: '40%',
     padding: 10,
   },
   listItemNumber: {
-    width: '20%',
-    padding: 10,
+    width: '15%',
+    paddingVertical: 10,
   },
   listItemSquaremeterPrice: {
-    width: '20%',
+    width: '25%',
     padding: 10,
     fontWeight: 'bold',
   },
-  nameInput: {
+  input: {
+    marginVertical: 15,
     paddingVertical: 10,
     paddingHorizontal: 20,
     fontSize: 22,

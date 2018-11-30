@@ -11,21 +11,18 @@ const RootStack = createStackNavigator(
       screen: HomeScreen,
       navigationOptions: {
         title: 'THE PIZZA CALCULATOR',
-        headerTitleStyle: { color: 'lightgrey' },
       }
     },
     Publish: {
       screen: PublishScreen,
       navigationOptions: {
-        title: 'THE PIZZA CALCULATOR',
-        headerTitleStyle: { color: 'lightgrey' },
+        title: 'PUBLISH PIZZERIA',
       }
     },
     List: {
       screen: ListScreen,
       navigationOptions: ({navigation}) => ({
-        title: 'THE PIZZA CALCULATOR',
-        headerTitleStyle: { color: 'lightgrey' },
+        title: 'TOP 100',
         headerLeft: <HeaderBackButton onPress={ () => { navigation.navigate('Home') } } />
       })
     },

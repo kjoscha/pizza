@@ -7,28 +7,31 @@ import { RESTDB_IO_KEY } from './Secrets';
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      price: 5,
-      diameter: 26,
-    };
   }
 
-  changeDiameter(diameter) {
-    this.setState(() => {
-      return {
-        diameter: parseFloat(diameter),
-      };
-    });
+  componentWillMount() {
+    let [diameter, price] = [25, 5.00];
+    this.setState({ diameter: diameter, price: price });
+    this.calculateSquaremeterPrice(diameter, price);
   }
 
-  changePrice(price) {
-    this.setState({ price: parseFloat(price).toFixed(2) })
+  changeDiameter(_diameter) {
+    let diameter = parseFloat(_diameter);
+    this.setState({ diameter: diameter });
+    this.calculateSquaremeterPrice(diameter, this.state.price);
   }
 
-  squareCentimeterPrice() {
-    const radius = (this.state.diameter / 2)
+  changePrice(_price) {
+    let price = parseFloat(_price).toFixed(2);
+    this.setState({ price: price })
+    this.calculateSquaremeterPrice(this.state.diameter, price);
+  }
+
+  calculateSquaremeterPrice(diameter, price) {
+    const radius = (diameter / 2)
     const area = 3.14 * radius * radius
-    return Math.round(this.state.price / area * 10000) //price for one square meter
+    const result = Math.round(price / area * 10000) //price for one square meter
+    this.setState({ squaremeterPrice: result })
   }
 
   render() {
@@ -64,20 +67,25 @@ export default class HomeScreen extends React.Component {
 
         <View style={styles.greyBlock}>
           <Text style={styles.result}>One square meter would cost</Text>
-          <Text style={styles.bigNumber}>{this.squareCentimeterPrice()}€</Text>
+          <Text style={styles.bigNumber}>{this.state.squaremeterPrice}€</Text>
         </View>
 
         <View style={styles.buttonContainer}>
           <TouchableOpacity
-            style={styles.listButton}
+            style={styles.button}
             onPress={() => this.props.navigation.navigate('List')}>
-            <Text style={styles.listButtonText}> Top 100 </Text>
+            <Text style={styles.buttonText}> Top 100 </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={styles.listButton}
-            onPress={() => this.props.navigation.navigate('Publish', {squareCentimeterPrice: this.squareCentimeterPrice()})}>
-            <Text style={styles.listButtonText}> Publish </Text>
+            style={styles.button}
+            onPress={() => this.props.navigation.navigate('Publish', {
+              price: this.state.price,
+              diameter: this.state.diameter,
+              squaremeterPrice: this.state.squaremeterPrice},
+            )}
+          >
+            <Text style={styles.buttonText}> Publish </Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

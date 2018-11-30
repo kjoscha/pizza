@@ -7,7 +7,11 @@ export default class PublishScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: 'test',
+      name: null,
+      description: null,
+      diameter: this.props.navigation.getParam('diameter'),
+      price: this.props.navigation.getParam('price'),
+      squaremeterPrice: this.props.navigation.getParam('squaremeterPrice'),
     };
   }
 
@@ -22,9 +26,10 @@ export default class PublishScreen extends React.Component {
       },
       body: JSON.stringify({
         name: this.state.name,
-        diameter: 10,
-        price: 12.50,
-        squaremeter_price: this.props.navigation.getParam('squareCentimeterPrice')
+        description: this.state.description,
+        diameter: this.state.diameter,
+        price: this.state.price,
+        squaremeter_price: this.state.squaremeterPrice,
       }),
     })
     .then(function() {
@@ -33,26 +38,45 @@ export default class PublishScreen extends React.Component {
   }
 
   render() {
+    const publishButton = (
+      this.state.name && this.state.name.length >= 3 &&
+      this.state.description && this.state.description.length >= 8
+    )
+    ?
+      <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={this.postData.bind(this)}>
+            <Text style={styles.buttonText}> Publish </Text>
+          </TouchableOpacity>
+        </View>
+      : null;
+
     return(
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.greyBlock}>
+          <Text style={styles.result}>{ `A ${this.state.diameter}cm pizza for ${this.state.price}€...` }</Text>
+          <Text style={styles.result}>One square meter would cost</Text>
+          <Text style={styles.bigNumber}>{this.state.squaremeterPrice}€</Text>
+        </View>
+
         <TextInput
           autoFocus={true}
-          style={styles.nameInput}
-          placeholder="Name"
+          multiline={true}
+          style={styles.input}
+          placeholder="What's the name?"
           onChangeText={(text) => this.setState({ name: text })}
         />
 
-        <View style={styles.greyBlock}>
-          <Text style={styles.result}>One square meter would cost</Text>
-          <Text style={styles.bigNumber}>{this.props.navigation.getParam('squareCentimeterPrice')}€</Text>
-        </View>
+        <TextInput
+          multiline={true}
+          style={styles.input}
+          placeholder="Where is it located?"
+          onChangeText={(text) => this.setState({ description: text })}
+        />
 
-        <TouchableOpacity
-          style={styles.listButton}
-          onPress={this.postData.bind(this)}>
-          <Text style={styles.listButtonText}> Publish </Text>
-        </TouchableOpacity>
-      </View>
+        {publishButton}
+      </ScrollView>
     )
   }
 }
