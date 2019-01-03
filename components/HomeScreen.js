@@ -1,8 +1,8 @@
 import React from 'react';
 import { Dimensions, TextInput, TouchableOpacity, View, ScrollView, Text, Image, Slider } from 'react-native';
-import styles from './Styles';
+import styles from '../Styles';
 import PublishScreen from './PublishScreen';
-import { RESTDB_IO_KEY } from './Secrets';
+import { RESTDB_IO_KEY } from '../Secrets';
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -50,7 +50,7 @@ export default class HomeScreen extends React.Component {
           value={this.state.diameter}
         />
 
-        <Image source={require('./assets/pizza.png')} style={{width: this.state.diameter * 3, height: this.state.diameter * 3}} />
+        <Image source={require('../assets/pizza.png')} style={{width: this.state.diameter * 3, height: this.state.diameter * 3}} />
 
         <Text style={styles.priceText}>My pizza has a price of</Text>
         <Text style={styles.bigNumber}>{this.state.price}€</Text>

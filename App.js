@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button } from 'react-native';
 import { createStackNavigator, createAppContainer, HeaderBackButton } from 'react-navigation'; // Version can be specified in package.json
-import HomeScreen from './HomeScreen';
-import PublishScreen from './PublishScreen';
-import ListScreen from './ListScreen';
+import HomeScreen from './components/HomeScreen';
+import PublishScreen from './components/PublishScreen';
+import ListScreen from './components/ListScreen';
 
 const RootStack = createStackNavigator(
   {

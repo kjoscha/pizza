@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, ScrollView, Text, FlatList } from 'react-native';
 import Vendor from './Vendor';
-import styles from './Styles';
-import { RESTDB_IO_KEY } from './Secrets';
+import styles from '../Styles';
+import { RESTDB_IO_KEY } from '../Secrets';
 
 export default class ListScreen extends React.Component {
   constructor(props) {

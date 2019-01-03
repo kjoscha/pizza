@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextInput, TouchableOpacity, View, ScrollView, Text } from 'react-native';
-import styles from './Styles';
-import { RESTDB_IO_KEY } from './Secrets';
+import styles from '../Styles';
+import { RESTDB_IO_KEY } from '../Secrets';
 
 export default class PublishScreen extends React.Component {
   constructor(props) {
