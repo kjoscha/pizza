@@ -1,44 +1,21 @@
 import React from 'react';
 import { Dimensions, TextInput, TouchableOpacity, View, ScrollView, Text, Image, Slider } from 'react-native';
+import { connect } from "react-redux";
+
 import styles from '../Styles';
 import PublishScreen from './PublishScreen';
 import { RESTDB_IO_KEY } from '../Secrets';
 
-export default class HomeScreen extends React.Component {
+class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
-  }
-
-  componentWillMount() {
-    let [diameter, price] = [25, 5.00];
-    this.setState({ diameter: diameter, price: price });
-    this.calculateSquaremeterPrice(diameter, price);
-  }
-
-  changeDiameter(_diameter) {
-    let diameter = parseFloat(_diameter);
-    this.setState({ diameter: diameter });
-    this.calculateSquaremeterPrice(diameter, this.state.price);
-  }
-
-  changePrice(_price) {
-    let price = parseFloat(_price).toFixed(2);
-    this.setState({ price: price })
-    this.calculateSquaremeterPrice(this.state.diameter, price);
-  }
-
-  calculateSquaremeterPrice(diameter, price) {
-    const radius = (diameter / 2)
-    const area = 3.14 * radius * radius
-    const result = Math.round(price / area * 10000) //price for one square meter
-    this.setState({ squaremeterPrice: result })
   }
 
   render() {
     const main =
       <ScrollView contentContainerStyle={styles.container}>
         <Text>My pizza has a diameter of</Text>
-        <Text style={styles.bigNumber}>{this.state.diameter}cm</Text>
+        <Text style={styles.bigNumber}>{this.props.pizzaCalc.diameter}cm</Text>
 
         <Slider
           style={styles.slider}
@@ -46,14 +23,14 @@ export default class HomeScreen extends React.Component {
           step={1}
           minimumValue={1}
           maximumValue={100}
-          onValueChange={this.changeDiameter.bind(this)}
-          value={this.state.diameter}
+          onValueChange={this.props.setDiameter}
+          value={this.props.pizzaCalc.diameter}
         />
 
-        <Image source={require('../assets/pizza.png')} style={{width: this.state.diameter * 3, height: this.state.diameter * 3}} />
+        <Image source={require('../assets/pizza.png')} style={{width: this.props.pizzaCalc.diameter * 3, height: this.props.pizzaCalc.diameter * 3}} />
 
         <Text style={styles.priceText}>My pizza has a price of</Text>
-        <Text style={styles.bigNumber}>{this.state.price}€</Text>
+        <Text style={styles.bigNumber}>{this.props.pizzaCalc.price}€</Text>
 
         <Slider
           style={styles.slider}
@@ -61,13 +38,13 @@ export default class HomeScreen extends React.Component {
           step={0.1}
           minimumValue={1}
           maximumValue={20}
-          onValueChange={this.changePrice.bind(this)}
-          value={this.state.price}
+          onValueChange={this.props.setPrice}
+          value={this.props.pizzaCalc.price}
         />
 
         <View style={styles.greyBlock}>
           <Text style={styles.result}>One square meter would cost</Text>
-          <Text style={styles.bigNumber}>{this.state.squaremeterPrice}€</Text>
+          <Text style={styles.bigNumber}>{this.props.pizzaCalc.squaremeterPrice}€</Text>
         </View>
 
         <View style={styles.buttonContainer}>
@@ -79,12 +56,7 @@ export default class HomeScreen extends React.Component {
 
           <TouchableOpacity
             style={styles.button}
-            onPress={() => this.props.navigation.navigate('Publish', {
-              price: this.state.price,
-              diameter: this.state.diameter,
-              squaremeterPrice: this.state.squaremeterPrice},
-            )}
-          >
+            onPress={() => this.props.navigation.navigate('Publish')}>
             <Text style={styles.buttonText}> Publish </Text>
           </TouchableOpacity>
         </View>
@@ -95,3 +67,18 @@ export default class HomeScreen extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    pizzaCalc: state.pizzaCalc,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setDiameter: (diameter) => { dispatch({ type: "SET_DIAMETER", payload: diameter }) },
+    setPrice: (price) => { dispatch( { type: "SET_PRICE", payload: price } ) },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

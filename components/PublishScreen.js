@@ -1,18 +1,13 @@
 import React from 'react';
 import { TextInput, TouchableOpacity, View, ScrollView, Text } from 'react-native';
+import { connect } from "react-redux";
+
 import styles from '../Styles';
 import { RESTDB_IO_KEY } from '../Secrets';
 
-export default class PublishScreen extends React.Component {
+class PublishScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      name: null,
-      description: null,
-      diameter: this.props.navigation.getParam('diameter'),
-      price: this.props.navigation.getParam('price'),
-      squaremeterPrice: this.props.navigation.getParam('squaremeterPrice'),
-    };
   }
 
   postData() {
@@ -25,11 +20,11 @@ export default class PublishScreen extends React.Component {
         "x-apikey": RESTDB_IO_KEY,
       },
       body: JSON.stringify({
-        name: this.state.name,
-        description: this.state.description,
-        diameter: this.state.diameter,
-        price: this.state.price,
-        squaremeter_price: this.state.squaremeterPrice,
+        name: this.props.pizzaCalc.name,
+        description: this.props.pizzaCalc.description,
+        diameter: this.props.pizzaCalc.diameter,
+        price: this.props.pizzaCalc.price,
+        squaremeter_price: this.props.pizzaCalc.squaremeterPrice,
       }),
     })
     .then(function() {
@@ -38,26 +33,23 @@ export default class PublishScreen extends React.Component {
   }
 
   render() {
-    const publishButton = (
-      this.state.name && this.state.name.length >= 3 &&
-      this.state.description && this.state.description.length >= 8
-    )
+    const publishButton = this.props.pizzaCalc.name.length >= 3 && this.props.pizzaCalc.description.length >= 3
     ?
-      <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={this.postData.bind(this)}>
-            <Text style={styles.buttonText}> Publish </Text>
-          </TouchableOpacity>
-        </View>
-      : null;
+    <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={this.postData.bind(this)}>
+          <Text style={styles.buttonText}> Publish </Text>
+        </TouchableOpacity>
+      </View>
+    : null;
 
     return(
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.greyBlock}>
-          <Text style={styles.result}>{ `A ${this.state.diameter}cm pizza for ${this.state.price}€...` }</Text>
+          <Text style={styles.result}>{ `A ${this.props.pizzaCalc.diameter}cm pizza for ${this.props.pizzaCalc.price}€...` }</Text>
           <Text style={styles.result}>One square meter would cost</Text>
-          <Text style={styles.bigNumber}>{this.state.squaremeterPrice}€</Text>
+          <Text style={styles.bigNumber}>{this.props.pizzaCalc.squaremeterPrice}€</Text>
         </View>
 
         <TextInput
@@ -65,14 +57,14 @@ export default class PublishScreen extends React.Component {
           multiline={true}
           style={styles.input}
           placeholder="What's the name?"
-          onChangeText={(text) => this.setState({ name: text })}
+          onChangeText={(text) => this.props.setName(text)}
         />
 
         <TextInput
           multiline={true}
           style={styles.input}
           placeholder="Where is it located?"
-          onChangeText={(text) => this.setState({ description: text })}
+          onChangeText={(text) => this.props.setDescription(text)}
         />
 
         {publishButton}
@@ -80,3 +72,19 @@ export default class PublishScreen extends React.Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    pizzaCalc: state.pizzaCalc,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setName: (name) => { dispatch({ type: "SET_NAME", payload: name }) },
+    setDescription: (description) => { dispatch({ type: "SET_DESCRIPTION", payload: description }) },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PublishScreen);
+
