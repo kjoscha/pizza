@@ -1,4 +1,4 @@
-const pizzaCalcReducer = (state = {
+const attributeReducer = (state = {
 
   taste_fries: 5,
   taste_sauces: 5,
@@ -6,6 +6,7 @@ const pizzaCalcReducer = (state = {
   price: 2.00,
   name: '',
   description: '',
+  barrier_free: false,
 
 }, action) => {
   switch (action.type) {
@@ -16,9 +17,10 @@ const pizzaCalcReducer = (state = {
     case 'SET_NAME': state = { ...state, name: action.payload }; break;
     case 'SET_DESCRIPTION': state = { ...state, description: action.payload }; break;
     case 'SET_PRICE': state = { ...state, price: action.payload }; break;
+    case 'SET_BARRIER_FREE': state = { ...state, barrier_free: action.payload }; break;
 
   }
   return state;
 };
 
-export default pizzaCalcReducer;
+export default attributeReducer;

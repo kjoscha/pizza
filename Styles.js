@@ -6,6 +6,13 @@ export default StyleSheet.create({
     marginBottom: 20,
     transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }]
   },
+  checkboxContainer: {
+    flexDirection: 'row',
+    alignItems:'center',
+  },
+  checkbox: {
+    transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }]
+  },
   priceText: {
     marginTop: 30,
   },
@@ -33,7 +40,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 10,
+    paddingVertical: 20,
     justifyContent: 'space-around'
   },
   container: {

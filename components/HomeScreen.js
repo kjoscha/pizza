@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, TextInput, TouchableOpacity, View, ScrollView, Text, Image, Slider } from 'react-native';
+import { Dimensions, TextInput, TouchableOpacity, View, ScrollView, Text, Image, Slider, CheckBox } from 'react-native';
 import { connect } from "react-redux";
 
 import styles from '../Styles';
@@ -32,6 +32,15 @@ class HomeScreen extends React.Component {
           />
         </View>
 
+        <View style={styles.checkboxContainer}>
+          <Text>{'Barrierefrei? '}</Text>
+          <CheckBox
+            style={styles.checkbox}
+            value={this.props.attributes.barrier_free}
+            onValueChange={this.props.setBarrierFree}
+          />
+        </View>
+
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.button}
@@ -40,7 +49,7 @@ class HomeScreen extends React.Component {
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={styles.button}
+            style={{...styles.button, backgroundColor: 'lightgreen'}}
             onPress={() => this.props.navigation.navigate('Publish')}>
             <Text style={styles.buttonText}> Publish </Text>
           </TouchableOpacity>
@@ -61,10 +70,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setTasteFries: (value) => { dispatch({ type: "SET_TASTE_FRIES", payload: value }) },
-    setTasteSauces: (value) => { dispatch( { type: "SET_TASTE_SAUCES", payload: value } ) },
-    setPortionSize: (value) => { dispatch( { type: "SET_PORTION_SIZE", payload: value } ) },
-    setPrice: (value) => { dispatch( { type: "SET_PRICE", payload: value } ) },
+    setTasteFries:  (value) => { dispatch( { type: "SET_TASTE_FRIES",   payload: value }) },
+    setTasteSauces: (value) => { dispatch( { type: "SET_TASTE_SAUCES",  payload: value } ) },
+    setPortionSize: (value) => { dispatch( { type: "SET_PORTION_SIZE",  payload: value } ) },
+    setPrice:       (value) => { dispatch( { type: "SET_PRICE",         payload: value } ) },
+    setBarrierFree: (value) => { dispatch( { type: "SET_BARRIER_FREE",  payload: value } ) },
   };
 };
 
