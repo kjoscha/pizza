@@ -19,13 +19,7 @@ class PublishScreen extends React.Component {
         'Content-Type': 'application/json',
         "x-apikey": RESTDB_IO_KEY,
       },
-      body: JSON.stringify({
-        name: this.props.pizzaCalc.name,
-        description: this.props.pizzaCalc.description,
-        diameter: this.props.pizzaCalc.diameter,
-        price: this.props.pizzaCalc.price,
-        squaremeter_price: this.props.pizzaCalc.squaremeterPrice,
-      }),
+      body: JSON.stringify( this.props.attributes ),
     })
     .then(function() {
       that.props.navigation.navigate('List');
@@ -33,7 +27,7 @@ class PublishScreen extends React.Component {
   }
 
   render() {
-    const publishButton = this.props.pizzaCalc.name.length >= 3 && this.props.pizzaCalc.description.length >= 3
+    const publishButton = this.props.attributes.name.length >= 3 && this.props.attributes.description.length >= 3
     ?
     <View style={styles.buttonContainer}>
         <TouchableOpacity
@@ -46,18 +40,13 @@ class PublishScreen extends React.Component {
 
     return(
       <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.greyBlock}>
-          <Text style={styles.result}>{ `A ${this.props.pizzaCalc.diameter}cm pizza for ${this.props.pizzaCalc.price}€...` }</Text>
-          <Text style={styles.result}>One square meter would cost</Text>
-          <Text style={styles.bigNumber}>{this.props.pizzaCalc.squaremeterPrice}€</Text>
-        </View>
-
         <TextInput
           autoFocus={true}
           multiline={true}
           style={styles.input}
           placeholder="What's the name?"
           onChangeText={(text) => this.props.setName(text)}
+          value={this.props.attributes.name}
         />
 
         <TextInput
@@ -65,6 +54,7 @@ class PublishScreen extends React.Component {
           style={styles.input}
           placeholder="Where is it located?"
           onChangeText={(text) => this.props.setDescription(text)}
+          value={this.props.attributes.description}
         />
 
         {publishButton}
@@ -75,7 +65,7 @@ class PublishScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    pizzaCalc: state.pizzaCalc,
+    attributes: state.attributes,
   };
 };
 

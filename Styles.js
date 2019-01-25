@@ -1,9 +1,6 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  bigNumber: {
-    fontSize: 30
-  },
   slider: {
     marginTop: 20,
     marginBottom: 20,
@@ -79,5 +76,7 @@ export default StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     fontSize: 22,
+    borderRadius: 4,
+    borderWidth: 0.5,
   }
 });

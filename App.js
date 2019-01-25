@@ -13,13 +13,13 @@ const RootStack = createStackNavigator(
     Home: {
       screen: HomeScreen,
       navigationOptions: {
-        title: 'THE PIZZA CALCULATOR',
+        title: 'DIE FRITTEN-APP',
       }
     },
     Publish: {
       screen: PublishScreen,
       navigationOptions: {
-        title: 'PUBLISH PIZZERIA',
+        title: 'FRITTEN HINZUFÜGEN',
       }
     },
     List: {

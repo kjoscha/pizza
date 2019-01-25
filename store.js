@@ -1,8 +1,8 @@
-import {createStore, combineReducers, applyMiddleware} from "redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
 
-import pizzaCalc from "./reducers/pizzaCalcReducer";
+import attributes from "./reducers/attributesReducer";
 import user from "./reducers/userReducer";
 
 export default createStore(
-  combineReducers({ pizzaCalc, user }), {}, applyMiddleware()
+  combineReducers({ attributes, user }), {}, applyMiddleware()
 );
