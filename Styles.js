@@ -57,8 +57,9 @@ export default StyleSheet.create({
     width: '98%',
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: 'lightgrey',
+    backgroundColor: 'white',
     borderRadius: 4,
+    borderWidth: 0.5,
   },
   listItemDescription: {
     padding: 10,
@@ -79,10 +80,11 @@ export default StyleSheet.create({
     fontWeight: 'bold',
   },
   input: {
-    marginVertical: 15,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    fontSize: 22,
+    backgroundColor: 'white',
+    marginVertical: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    fontSize: 20,
     borderRadius: 4,
     borderWidth: 0.5,
   }

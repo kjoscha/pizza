@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, TouchableOpacity, View, ScrollView, Text } from 'react-native';
+import { TextInput, TouchableOpacity, View, ScrollView, Text, ImageBackground } from 'react-native';
 import { connect } from "react-redux";
 
 import styles from '../Styles';
@@ -39,26 +39,28 @@ class PublishScreen extends React.Component {
     : null;
 
     return(
-      <ScrollView contentContainerStyle={styles.container}>
-        <TextInput
-          autoFocus={true}
-          multiline={true}
-          style={styles.input}
-          placeholder="What's the name?"
-          onChangeText={(text) => this.props.setName(text)}
-          value={this.props.attributes.name}
-        />
+      <ImageBackground source={require('../assets/fries.jpg')} style={{width: '100%', height: '100%'}}>
+        <ScrollView contentContainerStyle={styles.container}>
+          <TextInput
+            autoFocus={true}
+            multiline={true}
+            style={styles.input}
+            placeholder="What's the name?"
+            onChangeText={(text) => this.props.setName(text)}
+            value={this.props.attributes.name}
+          />
 
-        <TextInput
-          multiline={true}
-          style={styles.input}
-          placeholder="Where is it located?"
-          onChangeText={(text) => this.props.setDescription(text)}
-          value={this.props.attributes.description}
-        />
+          <TextInput
+            multiline={true}
+            style={styles.input}
+            placeholder="Where is it located?"
+            onChangeText={(text) => this.props.setDescription(text)}
+            value={this.props.attributes.description}
+          />
 
-        {publishButton}
-      </ScrollView>
+          {publishButton}
+        </ScrollView>
+      </ImageBackground>
     )
   }
 }

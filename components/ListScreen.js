@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, Text, FlatList } from 'react-native';
+import { View, ScrollView, Text, FlatList, ImageBackground } from 'react-native';
 import Vendor from './Vendor';
 import styles from '../Styles';
 import { RESTDB_IO_KEY } from '../Secrets';
@@ -51,9 +51,11 @@ export default class ListScreen extends React.Component {
       <Text>waiting for pizzas...</Text>
 
     return (
-      <ScrollView contentContainerStyle={styles.container}>
-        {table}
-      </ScrollView>
+      <ImageBackground source={require('../assets/fries.jpg')} style={{width: '100%', height: '100%'}}>
+        <ScrollView contentContainerStyle={styles.container}>
+          {table}
+        </ScrollView>
+      </ImageBackground>
     );
   }
 }
