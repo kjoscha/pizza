@@ -27,7 +27,7 @@ export default StyleSheet.create({
   button: {
     paddingVertical: 10,
     paddingHorizontal: 20,
-    backgroundColor: 'steelblue',
+    backgroundColor: 'darkred',
     borderRadius: 4,
   },
   buttonText: {

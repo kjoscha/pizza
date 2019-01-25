@@ -32,7 +32,13 @@ const RootStack = createStackNavigator(
   },
   {
     initialRouteName: 'Home',
-  }
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: 'darkred',
+      },
+      headerTintColor: 'white',
+    },
+  },
 );
 
 const AppContainer = createAppContainer(RootStack);

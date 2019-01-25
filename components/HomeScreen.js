@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, TextInput, TouchableOpacity, View, ScrollView, Text, Image, Slider, CheckBox } from 'react-native';
+import { Dimensions, TextInput, TouchableOpacity, View, ScrollView, Text, Image, Slider, CheckBox, ImageBackground } from 'react-native';
 import { connect } from "react-redux";
 
 import styles from '../Styles';
@@ -14,47 +14,50 @@ class HomeScreen extends React.Component {
 
   render() {
     const main =
-      <ScrollView contentContainerStyle={styles.container}>
-        <AttributeSlider text={'Frittengeschmack'} value={this.props.attributes.taste_fries} setterFunction={this.props.setTasteFries} />
-        <AttributeSlider text={'Saucengeschmack'} value={this.props.attributes.taste_sauces} setterFunction={this.props.setTasteSauces} />
-        <AttributeSlider text={'Portionsgröße'} value={this.props.attributes.portion_size} setterFunction={this.props.setPortionSize} />
+      <ImageBackground source={require('../assets/fries.jpg')} style={{width: '100%', height: '100%'}}>
+        <ScrollView contentContainerStyle={styles.container}>
 
-        <View>
-          <Text>{`Preis: ${this.props.attributes.price.toFixed(2)}€`}</Text>
-          <Slider
-            style={styles.slider}
-            width={Dimensions.get('window').width * 0.7}
-            step={0.1}
-            minimumValue={1}
-            maximumValue={5}
-            onValueChange={this.props.setPrice}
-            value={this.props.attributes.price}
-          />
-        </View>
+          <AttributeSlider text={'Frittengeschmack'} value={this.props.attributes.taste_fries} setterFunction={this.props.setTasteFries} />
+          <AttributeSlider text={'Saucengeschmack'} value={this.props.attributes.taste_sauces} setterFunction={this.props.setTasteSauces} />
+          <AttributeSlider text={'Portionsgröße'} value={this.props.attributes.portion_size} setterFunction={this.props.setPortionSize} />
 
-        <View style={styles.checkboxContainer}>
-          <Text>{'Barrierefrei? '}</Text>
-          <CheckBox
-            style={styles.checkbox}
-            value={this.props.attributes.barrier_free}
-            onValueChange={this.props.setBarrierFree}
-          />
-        </View>
+          <View>
+            <Text>{`Preis: ${this.props.attributes.price.toFixed(2)}€`}</Text>
+            <Slider
+              style={styles.slider}
+              width={Dimensions.get('window').width * 0.7}
+              step={0.1}
+              minimumValue={1}
+              maximumValue={5}
+              onValueChange={this.props.setPrice}
+              value={this.props.attributes.price}
+            />
+          </View>
 
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => this.props.navigation.navigate('List')}>
-            <Text style={styles.buttonText}> Top 100 </Text>
-          </TouchableOpacity>
+          <View style={styles.checkboxContainer}>
+            <Text>{'Barrierefrei? '}</Text>
+            <CheckBox
+              style={styles.checkbox}
+              value={this.props.attributes.barrier_free}
+              onValueChange={this.props.setBarrierFree}
+            />
+          </View>
 
-          <TouchableOpacity
-            style={{...styles.button, backgroundColor: 'lightgreen'}}
-            onPress={() => this.props.navigation.navigate('Publish')}>
-            <Text style={styles.buttonText}> Publish </Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => this.props.navigation.navigate('List')}>
+              <Text style={styles.buttonText}> Top 100 </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={{...styles.button, backgroundColor: 'lightgreen'}}
+              onPress={() => this.props.navigation.navigate('Publish')}>
+              <Text style={styles.buttonText}> Publish </Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </ImageBackground>
 
     return (
       <View>{main}</View>
