@@ -22,12 +22,13 @@ class PublishScreen extends React.Component {
       body: JSON.stringify( this.props.attributes ),
     })
     .then(function() {
+      that.props.reset();
       that.props.navigation.navigate('List');
     });
   }
 
   render() {
-    const publishButton = this.props.attributes.name.length >= 3 && this.props.attributes.description.length >= 3
+    const publishButton = this.props.attributes.name.length >= 1 && this.props.attributes.description.length >= 1
     ?
     <View style={styles.buttonContainer}>
         <TouchableOpacity
@@ -66,17 +67,15 @@ class PublishScreen extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return {
-    attributes: state.attributes,
-  };
+  return { attributes: state.attributes };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setName: (name) => { dispatch({ type: "SET_NAME", payload: name }) },
-    setDescription: (description) => { dispatch({ type: "SET_DESCRIPTION", payload: description }) },
+    reset: () => dispatch({ type: "RESET" }),
+    setName:        (text) => { dispatch({ type: "SET_NAME",        payload: text }) },
+    setDescription: (text) => { dispatch({ type: "SET_DESCRIPTION", payload: text }) },
   };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PublishScreen);
-

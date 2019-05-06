@@ -66,9 +66,7 @@ class HomeScreen extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return {
-    attributes: state.attributes,
-  };
+  return { attributes: state.attributes };
 };
 
 const mapDispatchToProps = (dispatch) => {
